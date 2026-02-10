@@ -1,6 +1,6 @@
-import express from "express";
-import fetch from "node-fetch";
-import cors from "cors";
+const express = require("express");
+const fetch = require("node-fetch");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
@@ -37,8 +37,11 @@ app.post("/chat", async (req, res) => {
     res.json(data);
 
   } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-app.listen(3000, () => console.log("Server running"));
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server running");
+});
